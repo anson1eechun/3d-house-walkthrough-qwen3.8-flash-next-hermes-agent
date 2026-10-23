@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>現代住宅 · 即時 3D 看房</title>
+<link rel="stylesheet" href="./src/ui/style.css">
+<script>window.__errors = []; window.addEventListener('error', (e) => window.__errors.push(String(e.message || (e.error && e.error.message) || e.type)), true);</script>
+<script type="importmap">
+{
+  "imports": {
+    "three": "./vendor/three/three.module.js",
+    "three/addons/": "./vendor/three/addons/"
+  }
+}
+</script>
+</head>
+<body>
+  <div id="scene-host"></div>
+
+  <!-- HUD -->
+  <div id="hud" class="hidden">
+    <div id="crosshair"></div>
+    <div id="interact-hint"></div>
+    <div id="room-name">玄關</div>
+    <div id="status-bar">
+      <span id="fps">-- FPS</span>
+      <span id="weather-state">☀ 白天</span>
+      <span id="light-state">燈光：關</span>
+      <span id="quality-state">畫質：中</span>
+    </div>
+    <div id="controls-hint">
+      WASD 移動 · 滑鼠視角 · Shift 加速 · F 互動 · E 推拉窗門 · Esc 選單
+    </div>
+  </div>
+
+  <!-- Start overlay -->
+  <div id="start-overlay">
+    <div class="panel">
+      <div class="brand">MODERN RESIDENCE</div>
+      <h1>即時 3D 看房探索</h1>
+      <p class="sub">第一人稱 · 即時光影 · 動態天氣 · 可互動門窗家具</p>
+      <ul class="keys">
+        <li><b>滑鼠點擊</b> 開始探索並鎖定滑鼠</li>
+        <li><b>WASD</b> 移動 · <b>Shift</b> 加速 · <b>滑鼠</b> 視角</li>
+        <li><b>F</b> 互動（開門／開燈／開窗／抽屜） · <b>E</b> 推拉式門窗</li>
+        <li><b>Esc</b> 釋放滑鼠並開啟選單</li>
+      </ul>
+      <button id="btn-start">進入住宅</button>
+      <div class="fineprint">建議使用支援 WebGL2 的桌面瀏覽器 · 完全離線執行</div>
+    </div>
+  </div>
+
+  <!-- Pause overlay -->
+  <div id="pause-overlay" class="hidden">
+    <div class="panel small">
+      <h2>已暫停</h2>
+      <p>滑鼠已釋放。點擊畫面或按原按鈕繼續探索。</p>
+      <button id="btn-resume">繼續探索</button>
+    </div>
+  </div>
+
+  <!-- Settings panel -->
+  <div id="settings-panel" class="hidden">
+    <div class="panel small">
+      <h2>設定</h2>
+      <div class="row"><label>畫質</label>
+        <div class="btn-group" id="quality-group">
+          <button data-q="low">低</button><button data-q="medium" class="active">中</button><button data-q="high">高</button>
+        </div>
+      </div>
+      <div class="row"><label>天氣</label>
+        <div class="btn-group" id="weather-group">
+          <button data-w="clear" class="active">白天</button><button data-w="rain">雨天</button><button data-w="night">夜晚</button>
+        </div>
+      </div>
+      <div class="row"><label>室內燈光</label><div id="light-toggles" class="chip-group"></div></div>
+      <div class="row"><label>位置</label>
+        <div class="btn-group"><button id="btn-reset">回到玄關</button></div>
+      </div>
+      <div class="row"><label>&nbsp;</label><button id="btn-close-settings">關閉</button></div>
+    </div>
+  </div>
+
+  <!-- Error box -->
+  <div id="error-box" class="hidden">
+    <div class="panel small">
+      <h2>無法啟動 3D 場景</h2>
+      <p id="error-msg">此瀏覽器不支援 WebGL2，或顯示卡驅動無法建立渲染環境。</p>
+      <div class="fineprint">請改用最新版 Chrome / Edge / Firefox，並確認瀏覽器硬件加速已開啟。</div>
+    </div>
+  </div>
+
+  <div id="loading">
+    <div class="load-bar"><div id="load-fill"></div></div>
+    <div id="load-text">正在建構場景…</div>
+  </div>
+
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>

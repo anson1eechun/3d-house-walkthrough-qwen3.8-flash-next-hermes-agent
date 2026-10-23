@@ -1,0 +1,10 @@
+{
+  "name": "3d-house-walkthrough",
+  "version": "1.0.0",
+  "private": true,
+  "description": "UE 風格即時 3D 房屋看房（Three.js，完全離線）",
+  "type": "module",
+  "scripts": {
+    "start": "node scripts/serve.js"
+  }
+}
